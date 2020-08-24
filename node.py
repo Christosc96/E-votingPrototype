@@ -31,13 +31,13 @@ class Node:
 
         self.cur = self.con.cursor()
 
-        self.cur.execute("CREATE TABLE Votes (id serial PRIMARY KEY, Vote integer, Vote_id bigint, Name varchar, Surname varchar);")
+        self.cur.execute("CREATE TABLE Votes (id serial PRIMARY KEY, Vote integer, Vote_id bigint,id_number bigint, Name varchar, Surname varchar);")
 
         self.con.commit()
 
-    def insert(self,vote,vote_id,name,surname,test=False):
-        postgres_insert_query = """ INSERT INTO Votes (Vote, Vote_id, Name, Surname) VALUES (%s,%s,%s,%s)"""
-        record_to_insert = (vote, vote_id, name, surname)
+    def insert(self,vote,vote_id,id_number, name,surname,test=False):
+        postgres_insert_query = """ INSERT INTO Votes (Vote, Vote_id, id_number, Name, Surname) VALUES (%s,%s,%s,%s,%s)"""
+        record_to_insert = (vote, vote_id,id_number, name, surname)
 
         #randomly "drop" the connection if test=True
         if(test):
@@ -45,7 +45,7 @@ class Node:
             if(drop):
                 sleep_time = random.uniform(200, 3000)
                 time.sleep(sleep_time/1000)
-                print("Node %s: Vote not saved (Timeout)" % self.db_name)
+                print("%s: Vote not saved (Timeout)" % self.db_name)
                 return -2          #code for timeout
 
 
@@ -61,8 +61,3 @@ class Node:
         self.cur.execute("SELECT COUNT(*) FROM Votes;")
         res=self.cur.fetchall()
         return res[0][0]
-
-
-
-
-    
