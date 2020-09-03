@@ -1,12 +1,3 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <fa-icon class="ml-2 mr-2" [icon]="faVoteYea"></fa-icon>
@@ -16,23 +7,71 @@
 <div class="content" role="main">
 
   <!-- Resources -->
-  <h2>Cast your vote</h2>
+  <h2>1. Select your vote</h2>
   
   <div class="card-container">
-    <a class="card" target="_blank" rel="noopener">
+    <a class="card" (click)="setVote('DEMOCRATS')" [ngClass]="{'highlight': selectedParty === 'DEMOCRATS'}">
       <fa-icon class="mr-2" [icon]="faDemocrat"></fa-icon>
       <span>Democrats</span>
     </a>
 
-    <a class="card" target="_blank" rel="noopener">
+    <a class="card" (click)="setVote('REPUBLICANS')" [ngClass]="{'highlight': selectedParty === 'REPUBLICANS'}">
       <fa-icon class="mr-2" [icon]="faRepublican"></fa-icon>
       <span>Republicans</span>
     </a>
 
-    <a class="card" target="_blank" rel="noopener">
+    <a class="card" (click)="setVote('PROTEST')" [ngClass]="{'highlight': selectedParty === 'PROTEST'}">
       <fa-icon class="mr-2" [icon]="faFire"></fa-icon>
       <span>Protest Vote</span>
     </a>
   </div>
+
+  <h2>2. Fill out the form:</h2>
+  
+  <form #f class="example-form" (ngSubmit)="castVote()">
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="standard">
+          <mat-label>Name</mat-label>
+          <input required matInput #name="ngModel" name="name" [(ngModel)]="voteRequest.name">
+          <mat-error>
+            Please enter a name
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="standard">
+          <mat-label>Surname</mat-label>
+          <input required matInput #surname="ngModel" name="surname" [(ngModel)]="voteRequest.surname">
+          <mat-error>
+            Please enter a surname
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <mat-form-field appearance="standard">
+          <mat-label>ID</mat-label>
+          <input required matInput #id="ngModel" name="id" [(ngModel)]="voteRequest.id">
+          <mat-error>
+            Please enter an ID 
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 1rem;">
+      <div class="col">
+        <button [disabled]="f.invalid || loading" type="submit" style="width: 100%;" mat-raised-button color="primary">Vote!</button>
+      </div>
+    </div>
+  </form>
+  
 
 <router-outlet></router-outlet>
