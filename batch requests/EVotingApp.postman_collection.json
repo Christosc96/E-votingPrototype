@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "4dcffaa8-6355-42e5-9e21-56fb2c068137",
+		"name": "EVotingApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Odd ID Vote",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e42538dc-bc18-4047-b685-a2d2a266782b",
+						"exec": [
+							"function getRandomVote() {\r",
+							"    let vote;\r",
+							"    let vote_id = Math.floor(Math.random() * (3 - 1 + 1)) + 1;\r",
+							"    switch(vote_id) {\r",
+							"        case 1:\r",
+							"            vote = \"DEMOCRATS\";\r",
+							"            break;\r",
+							"\r",
+							"        case 2:\r",
+							"            vote = \"REPUBLICANS\";\r",
+							"            break;\r",
+							"\r",
+							"        case 3:\r",
+							"            vote = \"PROTEST\";\r",
+							"            break;\r",
+							"\r",
+							"    }  \r",
+							"\r",
+							"    pm.globals.set(\"vote_id\", vote_id);\r",
+							"    pm.globals.set(\"vote\", vote);\r",
+							"}\r",
+							"\r",
+							"function getRandomOddId() {\r",
+							"    let id = 2* Math.floor(Math.random() * 10000) + 1;\r",
+							"    pm.globals.set(\"id\", id);\r",
+							"}\r",
+							"\r",
+							"getRandomVote();\r",
+							"getRandomOddId();"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{id}}\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"surname\": \"{{$randomLastName}}\",\r\n    \"vote\": \"{{vote}}\",\r\n    \"vote_id\": \"{{vote_id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/vote/odd",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"vote",
+						"odd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Even ID Vote",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "83454c9a-5d6e-4c1a-a2e3-341187999fb8",
+						"exec": [
+							"function getRandomVote() {\r",
+							"    let vote;\r",
+							"    let vote_id = Math.floor(Math.random() * (3 - 1 + 1)) + 1;\r",
+							"    switch(vote_id) {\r",
+							"        case 1:\r",
+							"            vote = \"DEMOCRATS\";\r",
+							"            break;\r",
+							"\r",
+							"        case 2:\r",
+							"            vote = \"REPUBLICANS\";\r",
+							"            break;\r",
+							"\r",
+							"        case 3:\r",
+							"            vote = \"PROTEST\";\r",
+							"            break;\r",
+							"\r",
+							"    }  \r",
+							"\r",
+							"    pm.globals.set(\"vote_id\", vote_id);\r",
+							"    pm.globals.set(\"vote\", vote);\r",
+							"}\r",
+							"\r",
+							"function getRandomEvenId() {\r",
+							"    let id = 2* Math.floor(Math.random() * 10000);\r",
+							"    pm.globals.set(\"id\", id);\r",
+							"}\r",
+							"\r",
+							"getRandomVote();\r",
+							"getRandomEvenId();"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{id}}\",\r\n    \"name\": \"{{$randomFirstName}}\",\r\n    \"surname\": \"{{$randomLastName}}\",\r\n    \"vote\": \"{{vote}}\",\r\n    \"vote_id\": \"{{vote_id}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/vote/even",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"vote",
+						"even"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

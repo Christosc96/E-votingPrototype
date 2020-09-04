@@ -49,12 +49,14 @@ def cast_vote_odd():
 @app.route('/vote/even', methods=['POST'])
 def cast_vote_even():
     # get form params
-    id = request.form.get('id')
-    name = request.form.get('name')
-    surname = request.form.get('surname')
+    data = request.json
 
-    vote = request.form.get('vote')
-    vote_id = request.form.get('vote_id')
+    id = data.get('id')
+    name = data.get('name')
+    surname = data.get('surname')
+
+    vote = data.get('vote')
+    vote_id = data.get('vote_id')
 
     vote_time = datetime.now()
     vote_time = vote_time.strftime("%d-%m-%Y %H:%M:%S")
