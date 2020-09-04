@@ -19,6 +19,7 @@ class Node:
         self.password = password
 
         self.con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+        self.con.set_client_encoding('UNICODE')
         self.cur = self.con.cursor()
 
         self.cur.execute(sql.SQL("CREATE DATABASE {}").format(
@@ -39,7 +40,7 @@ class Node:
         self.cur = self.con.cursor()
 
         self.cur.execute(
-            "CREATE TABLE Votes (id serial PRIMARY KEY, Vote integer, Vote_id bigint,id_number bigint, Name varchar, Surname varchar);")
+            "CREATE TABLE Votes (id serial PRIMARY KEY, Vote varchar, Vote_id bigint,id_number bigint, Name varchar, Surname varchar);")
         if(mode!='sync'):
             self.wait(self.con)
             self.cur.close()

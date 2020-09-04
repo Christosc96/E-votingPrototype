@@ -9,3 +9,4 @@ there is no need for strong consistency and instead we took advantage of ACID da
 
 Our approach consists of a write,merge and read step during a poll.
 
+curl -d "vote=1&vote_id=1&id=12345&name=christos&surname=papad" -X POST http://127.0.0.1:5000/vote
