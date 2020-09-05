@@ -20,6 +20,7 @@ def hello_world():
 def cast_vote_odd():
     # get form params
     data = request.json
+    data = request.form
 
     id = data.get('id')
     name = data.get('name')
@@ -34,13 +35,13 @@ def cast_vote_odd():
     # TODO: insert through node
     # insert to witness db ( synchronous, must wait for the isnertion to be complete)
 
-    mNode.insert(vote, vote_id, id, name, surname, test=True)
+    mNode.insert(vote, vote_id, id, name, surname)
 
     # insert to other databases( asynchronous, don't wait for the isnertion to be complete)
 
-    b1Node.insert_async(vote, vote_id, id, name, surname)
-    b2Node.insert_async(vote, vote_id, id, name, surname)
-    b3Node.insert_async(vote, vote_id, id, name, surname)
+    b1Node.insert_async(vote, vote_id, id, name, surname, test=True)
+    b2Node.insert_async(vote, vote_id, id, name, surname, test=True)
+    b3Node.insert_async(vote, vote_id, id, name, surname, test=True)
 
     resp = jsonify(success=True)
     return resp
@@ -50,6 +51,8 @@ def cast_vote_odd():
 def cast_vote_even():
     # get form params
     data = request.json
+    data = request.form
+
 
     id = data.get('id')
     name = data.get('name')
@@ -79,10 +82,10 @@ def cast_vote_even():
 
 
 if __name__ == '__main__':
-    mNode = Node('postgres', 'root', 'mNode', mode='sync')
-    b1Node = Node('postgres', 'root', 'b1Node', mode='async')
-    b2Node = Node('postgres', 'root', 'b2Node', mode='async')
-    b3Node = Node('postgres', 'root', 'b3Node', mode='async')
+    mNode = Node('postgres', 'pass', 'mNode', mode='sync')
+    b1Node = Node('postgres', 'pass', 'b1Node', mode='async')
+    b2Node = Node('postgres', 'pass', 'b2Node', mode='async')
+    b3Node = Node('postgres', 'pass', 'b3Node', mode='async')
 
     # TODO: Nodes for odd or even dbs 
 
