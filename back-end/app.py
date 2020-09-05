@@ -39,9 +39,9 @@ def cast_vote_odd():
 
     # insert to other databases( asynchronous, don't wait for the isnertion to be complete)
 
-    b1Node.insert_async(vote, vote_id, id, name, surname, test=True)
-    b2Node.insert_async(vote, vote_id, id, name, surname, test=True)
-    b3Node.insert_async(vote, vote_id, id, name, surname, test=True)
+    b1Node.insert_async(vote, vote_id, id, name, surname)
+    b2Node.insert_async(vote, vote_id, id, name, surname)
+    b3Node.insert_async(vote, vote_id, id, name, surname)
 
     resp = jsonify(success=True)
     return resp
