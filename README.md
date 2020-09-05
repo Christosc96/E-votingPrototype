@@ -12,6 +12,7 @@ Our approach consists of a write,merge and read step during a poll.
 curl -d "vote=1&vote_id=1&id=12345&name=christos&surname=papad" -X POST http://127.0.0.1:5000/vote
 
 ```
+from https://ekloges.ypes.gr/current/v/home/parties/
 5,769,644 / 48h =  120,201 votes/h
 120,201 / 3,600 ~= 34 concurrent votes/sec
 ```

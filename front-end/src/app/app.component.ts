@@ -19,6 +19,7 @@ export class AppComponent {
   selectedParty: string;
   voteRequest : Vote = new Vote();
   loading: boolean = false;
+  votingSuccessful: boolean = false;
 
   constructor(private voteService: VoteService) {
 
@@ -55,6 +56,10 @@ export class AppComponent {
     this.voteService.castVote(oddOrEven, this.voteRequest).subscribe(
       response => {
         console.log(response);
+        if (response.success === true) {
+          this.votingSuccessful = true;
+        }
+
         this.loading = false;
       }
     )

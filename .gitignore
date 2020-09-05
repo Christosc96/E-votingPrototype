@@ -1,6 +1,3 @@
+# Created by .ignore support plugin (hsz.mobi)
 venv
 .idea
-app.pyc
-node.pyc
-orchestrator.py
-__pycache__/app.cpython-38.pyc
