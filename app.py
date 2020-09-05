@@ -1,11 +1,15 @@
+import hashlib
+import json
 from datetime import datetime
 
 from flask import Flask, request
 from flask import jsonify
 from node import Node
+from flask import Flask
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/')
 def hello_world():
@@ -15,12 +19,14 @@ def hello_world():
 @app.route('/vote/odd', methods=['POST'])
 def cast_vote_odd():
     # get form params
-    id = request.form.get('id')
-    name = request.form.get('name')
-    surname = request.form.get('surname')
+    data = request.json
 
-    vote = request.form.get('vote')
-    vote_id = request.form.get('vote_id')
+    id = data.get('id')
+    name = data.get('name')
+    surname = data.get('surname')
+
+    vote = data.get('vote')
+    vote_id = data.get('vote_id')
 
     vote_time = datetime.now()
     vote_time = vote_time.strftime("%d-%m-%Y %H:%M:%S")
@@ -43,12 +49,14 @@ def cast_vote_odd():
 @app.route('/vote/even', methods=['POST'])
 def cast_vote_even():
     # get form params
-    id = request.form.get('id')
-    name = request.form.get('name')
-    surname = request.form.get('surname')
+    data = request.json
 
-    vote = request.form.get('vote')
-    vote_id = request.form.get('vote_id')
+    id = data.get('id')
+    name = data.get('name')
+    surname = data.get('surname')
+
+    vote = data.get('vote')
+    vote_id = data.get('vote_id')
 
     vote_time = datetime.now()
     vote_time = vote_time.strftime("%d-%m-%Y %H:%M:%S")
@@ -71,10 +79,10 @@ def cast_vote_even():
 
 
 if __name__ == '__main__':
-    mNode = Node('postgres', 'pass', 'mNode', mode='sync')
-    b1Node = Node('postgres', 'pass', 'b1Node', mode='async')
-    b2Node = Node('postgres', 'pass', 'b2Node', mode='async')
-    b3Node = Node('postgres', 'pass', 'b3Node', mode='async')
+    mNode = Node('postgres', 'root', 'mNode', mode='sync')
+    b1Node = Node('postgres', 'root', 'b1Node', mode='async')
+    b2Node = Node('postgres', 'root', 'b2Node', mode='async')
+    b3Node = Node('postgres', 'root', 'b3Node', mode='async')
 
     # TODO: Nodes for odd or even dbs 
 

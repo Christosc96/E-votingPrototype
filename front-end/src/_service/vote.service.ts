@@ -3,14 +3,14 @@ import { Vote } from 'src/_model/vote';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import {map} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VoteService {
-  http: any;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   castVote(oddOrEven: number, voteReq : Vote) : Observable<any> {
     
