@@ -20,6 +20,7 @@ def hello_world():
 def cast_vote_odd():
     # get form params
     data = request.json
+    data = request.form
 
     id = data.get('id')
     name = data.get('name')
@@ -38,9 +39,9 @@ def cast_vote_odd():
 
     # insert to other databases( asynchronous, don't wait for the isnertion to be complete)
 
-    b1Node.insert_async(vote, vote_id, id, name, surname)
-    b2Node.insert_async(vote, vote_id, id, name, surname)
-    b3Node.insert_async(vote, vote_id, id, name, surname)
+    b1Node.insert_async(vote, vote_id, id, name, surname, test=True)
+    b2Node.insert_async(vote, vote_id, id, name, surname, test=True)
+    b3Node.insert_async(vote, vote_id, id, name, surname, test=True)
 
     resp = jsonify(success=True)
     return resp
@@ -50,6 +51,8 @@ def cast_vote_odd():
 def cast_vote_even():
     # get form params
     data = request.json
+    data = request.form
+
 
     id = data.get('id')
     name = data.get('name')
@@ -64,9 +67,13 @@ def cast_vote_even():
     # TODO: insert through node
     # insert to witness db ( synchronous, must wait for the isnertion to be complete)
 
-    mNode.insert(vote, vote_id, id, name, surname)
+    m2Node.insert(vote, vote_id, id, name, surname)
 
     # insert to other databases( asynchronous, don't wait for the isnertion to be complete)
+
+    b4Node.insert_async(vote, vote_id, id, name, surname)
+    b5Node.insert_async(vote, vote_id, id, name, surname)
+    b6Node.insert_async(vote, vote_id, id, name, surname)
 
     # TODO: Nodes for odd or even dbs
 
@@ -75,11 +82,16 @@ def cast_vote_even():
 
 
 if __name__ == '__main__':
-    mNode = Node('postgres', 'root', 'mNode', mode='sync')
-    b1Node = Node('postgres', 'root', 'b1Node', mode='async')
-    b2Node = Node('postgres', 'root', 'b2Node', mode='async')
-    b3Node = Node('postgres', 'root', 'b3Node', mode='async')
+    mNode = Node('postgres', 'pass', 'mNode', mode='sync')
+    b1Node = Node('postgres', 'pass', 'b1Node', mode='async')
+    b2Node = Node('postgres', 'pass', 'b2Node', mode='async')
+    b3Node = Node('postgres', 'pass', 'b3Node', mode='async')
 
-    # TODO: Nodes for odd or even dbs
+    # TODO: Nodes for odd or even dbs 
+
+    m2Node = Node('postgres', 'pass', 'm2Node', mode='sync')
+    b4Node = Node('postgres', 'pass', 'b4Node', mode='async')
+    b5Node = Node('postgres', 'pass', 'b5Node', mode='async')
+    b6Node = Node('postgres', 'pass', 'b6Node', mode='async')
 
     app.run(host='127.0.0.1', port=5000, debug=False)

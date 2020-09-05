@@ -21,7 +21,9 @@ class Node:
         self.con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
         self.con.set_client_encoding('UNICODE')
         self.cur = self.con.cursor()
-
+        self.cur.execute(sql.SQL('DROP DATABASE IF EXISTS {}').format(
+            sql.Identifier(db_name))
+        )
         self.cur.execute(sql.SQL("CREATE DATABASE {}").format(
             sql.Identifier(db_name))
         )
@@ -52,12 +54,15 @@ class Node:
 
         # randomly "drop" the connection if test=True
         if (test):
+            '''
             drop = bool(random.getrandbits(1))
             if (drop):
                 sleep_time = random.uniform(200, 3000)
                 time.sleep(sleep_time / 1000)
                 print("%s: Vote not saved (Timeout)" % self.db_name)
                 return -2  # code for timeout
+            '''
+            postgres_insert_query  = """select pg_sleep(30); """ + postgres_insert_query
 
         try:
             self.cur.execute(postgres_insert_query, record_to_insert)
@@ -76,12 +81,15 @@ class Node:
 
         # randomly "drop" the connection if test=True
         if (test):
+            '''
             drop = bool(random.getrandbits(1))
             if (drop):
                 sleep_time = random.uniform(200, 3000)
                 time.sleep(sleep_time / 1000)
                 print("%s: Vote not saved (Timeout)" % self.db_name)
                 return -2  # code for timeout
+            '''
+            postgres_insert_query  = """select pg_sleep(30); """ + postgres_insert_query
 
         try:
             self.cur = self.con.cursor()
