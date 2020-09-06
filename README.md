@@ -1,6 +1,5 @@
 # E-votingPrototype
 
-
 This is our prototype for an e-voting app, better suited for online polls rather than actual elections.
 
 We initially designed the app to be a distributed system with multiple databases and opted for consistency and partition tolerance.
@@ -9,10 +8,24 @@ there is no need for strong consistency and instead we took advantage of ACID da
 
 Our approach consists of a write,merge and read step during a poll.
 
-curl -d "vote=1&vote_id=1&id=12345&name=christos&surname=papad" -X POST http://127.0.0.1:5000/vote
+start back-end:
+```
+cd back-end
+python app.py
+```
 
+start front-end:
 ```
-from https://ekloges.ypes.gr/current/v/home/parties/
-5,769,644 / 48h =  120,201 votes/h
-120,201 / 3,600 ~= 34 concurrent votes/sec
+cd front-end
+npm start
 ```
+
+run tests:
+
+- through Postman Collection Runner importing collection from ```batch-requests/postman```
+
+- or using a custom npm script 
+ ```
+  cd batch-requests
+  npm start
+  ```
